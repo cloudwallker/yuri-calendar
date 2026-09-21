@@ -163,5 +163,13 @@ document.addEventListener('visibilitychange', () => { if (!document.hidden) refr
 setInterval(refreshToday, 60_000);
 
 refreshToday();
-markMonth(1);
+if (!location.hash) history.replaceState(null, '', `#${lastTodayKey}`);
+const initialDateKey = parseDateHash(location.hash);
+if (initialDateKey) {
+  const month = parseDateKey(initialDateKey).month;
+  markMonth(month);
+  document.querySelector(`#month-${month}`).scrollIntoView({ behavior: 'instant', block: 'start' });
+} else {
+  markMonth(1);
+}
 syncSelection();

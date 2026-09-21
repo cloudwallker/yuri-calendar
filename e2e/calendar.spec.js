@@ -1,5 +1,13 @@
 import { test, expect } from '@playwright/test';
 
+test.use({ timezoneId: 'America/Los_Angeles' });
+
+async function openCalendar(page, url = './') {
+  await page.goto(url);
+  await page.getByRole('button', { name: '关闭日期详情' }).click();
+  await expect(page.getByRole('dialog')).not.toBeVisible();
+}
+
 test.beforeEach(async ({ page }) => {
   await page.clock.install({ time: new Date('2026-09-21T01:00:00Z') });
 });
@@ -7,7 +15,7 @@ test.beforeEach(async ({ page }) => {
 test('all 366 dates and responsive layout', async ({ page }, testInfo) => {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
-  await page.goto('./');
+  await openCalendar(page);
   await expect(page.locator('.day-button')).toHaveCount(366);
   await expect(page.locator('.month-card')).toHaveCount(12);
   await expect(page.getByRole('button', { name: '2月29日', exact: true })).toBeVisible();
@@ -24,7 +32,7 @@ test('all 366 dates and responsive layout', async ({ page }, testInfo) => {
 });
 
 test('date dialog keyboard close reload and focus', async ({ page }, testInfo) => {
-  await page.goto('./');
+  await openCalendar(page);
   const leapDay = page.getByRole('button', { name: '2月29日', exact: true });
   await leapDay.click();
   await expect(page).toHaveURL(/#02-29$/);
@@ -47,7 +55,7 @@ test('date dialog keyboard close reload and focus', async ({ page }, testInfo) =
 });
 
 test('back and forward sync dates and invalid links stay closed', async ({ page }) => {
-  await page.goto('./');
+  await openCalendar(page);
   await page.getByRole('button', { name: '1月1日', exact: true }).click();
   await page.evaluate(() => { location.hash = '02-29'; });
   await expect(page.locator('#dialog-title')).toHaveText('2月29日');
@@ -64,7 +72,7 @@ test('back and forward sync dates and invalid links stay closed', async ({ page 
 });
 
 test('month jump and today update at midnight', async ({ page }) => {
-  await page.goto('./');
+  await openCalendar(page);
   await page.getByRole('button', { name: '跳到12月' }).click();
   await expect(page.locator('#month-12')).toBeInViewport();
   await expect(page.getByRole('button', { name: '跳到12月' })).toHaveAttribute('aria-current', 'true');
@@ -80,8 +88,8 @@ test('month jump and today update at midnight', async ({ page }) => {
 });
 
 test('closing repeated dates does not trap browser history', async ({ page }) => {
-  await page.goto('./?before=1');
-  await page.goto('./');
+  await openCalendar(page, './?before=1');
+  await openCalendar(page);
   for (const key of ['01-01', '01-02']) {
     await page.locator('[data-date="' + key + '"]').click();
     await page.getByRole('button', { name: '关闭日期详情' }).click();
@@ -89,7 +97,7 @@ test('closing repeated dates does not trap browser history', async ({ page }) =>
     expect(new URL(page.url()).hash).toBe('');
   }
   await page.goBack();
-  await expect(page).toHaveURL(/\?before=1$/);
+  await expect(page).toHaveURL(/\?before=1(?:#09-21)?$/);
 });
 
 test('closing a direct date link returns focus to a visible date', async ({ page }) => {
@@ -98,3 +106,33 @@ test('closing a direct date link returns focus to a visible date', async ({ page
   await expect(page.locator('[data-date="12-31"]')).toBeFocused();
   await expect(page.locator('[data-date="12-31"]')).toBeInViewport();
 });
+
+test('entry opens the Beijing date without adding a history entry', async ({ page }) => {
+  await page.goto('./?from=bookmark');
+  await expect(page).toHaveURL(/\?from=bookmark#09-21$/);
+  await expect(page.getByRole('dialog')).toBeVisible();
+  await expect(page.locator('#dialog-title')).toHaveText('9月21日');
+  await expect(page.getByRole('button', { name: '跳到9月' })).toHaveAttribute('aria-current', 'true');
+  await expect(page.locator('#month-9')).toBeInViewport();
+  await page.getByRole('button', { name: '关闭日期详情' }).click();
+  await expect(page.getByRole('dialog')).not.toBeVisible();
+  await expect(page).toHaveURL(/\?from=bookmark$/);
+  await expect(page.locator('[data-date="09-21"]')).toBeFocused();
+  await expect(page.locator('[data-date="09-21"]')).toBeInViewport();
+  await page.reload();
+  await expect(page.locator('#dialog-title')).toHaveText('9月21日');
+  await expect(page.getByRole('dialog')).toBeVisible();
+});
+
+for (const fixture of [
+  { time: '2026-12-31T16:00:00Z', key: '01-01', title: '1月1日' },
+  { time: '2024-02-28T16:00:00Z', key: '02-29', title: '2月29日' },
+]) {
+  test('Beijing entry boundary ' + fixture.key, async ({ page }) => {
+    await page.clock.setSystemTime(new Date(fixture.time));
+    await page.goto('./');
+    expect(new URL(page.url()).hash).toBe('#' + fixture.key);
+    await expect(page.locator('#dialog-title')).toHaveText(fixture.title);
+    await expect(page.getByRole('dialog')).toBeVisible();
+  });
+}
