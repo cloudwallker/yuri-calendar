@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f8f6f2">
+    <meta name="description" content="一本持续生长的百合动画日历。从1月1日到12月31日，366个日子，收藏往年同日的故事。">
+    <title>百合日历 · 日子里的故事</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./assets/styles.css">
+    <script type="module" src="./assets/app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#calendar">跳到全年日历</a>
+    <header class="site-header page-width">
+      <a class="brand" href="./" aria-label="百合日历首页">
+        <span class="flower-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span>百合日历<span class="brand-subtitle">YURI CALENDAR</span></span>
+      </a>
+      <nav class="header-nav" aria-label="主要导航">
+        <a class="header-link active" href="#calendar">全年日历</a>
+        <a class="header-link" href="#about">关于日历</a>
+      </nav>
+      <span class="header-note">每一天，都值得收藏<span aria-hidden="true">✧</span></span>
+    </header>
+
+    <main class="page-width">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="small-star" aria-hidden="true">✦</span> 一本持续生长的百合动画日历</p>
+          <h1 id="hero-title">日子里的<span class="title-accent">百合故事</span><span class="title-period">。</span></h1>
+          <p class="hero-description">从一月到十二月，循着日期，重逢那些心动的瞬间。<br>选一个日子，让故事慢慢展开。</p>
+          <a class="hero-link" href="#calendar">翻开日历 <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="hero-number" aria-hidden="true">
+          <span class="number-caption">A YEAR OF LITTLE MOMENTS</span>
+          <span class="big-number">366<span class="number-star">✳</span></span>
+          <span class="number-baseline"><span>个日子，无数个故事</span><span>01.01 — 12.31</span></span>
+        </div>
+      </section>
+
+      <section class="calendar-section" id="calendar" aria-labelledby="calendar-title">
+        <div class="calendar-heading">
+          <div class="section-title"><span class="section-kicker">THE CALENDAR</span><h2 id="calendar-title">把喜欢，记在日子里</h2></div>
+          <button class="today-button" id="today-button" type="button"><span class="today-dot" aria-hidden="true"></span><span id="today-label">回到今天</span><span class="today-arrow" aria-hidden="true">↗</span></button>
+        </div>
+        <div class="month-navigation-wrap">
+          <nav class="month-navigation" id="month-navigation" aria-label="快速跳转月份"></nav>
+        </div>
+        <div class="calendar-meta"><p>选择日期，回望往年同日的故事</p><span><span class="legend-dot" aria-hidden="true"></span>今天<span class="meta-divider" aria-hidden="true"></span>含 2 月 29 日</span></div>
+        <div class="calendar-grid" id="calendar-grid"></div>
+        <noscript><p class="noscript-message">请启用 JavaScript，以浏览完整的 366 天日历和日期详情。</p></noscript>
+        <p class="calendar-end"><span aria-hidden="true">✧</span> 每一个平凡的日期，都可以藏着不平凡的喜欢。<span aria-hidden="true">✧</span></p>
+      </section>
+
+      <section class="about-section" id="about" aria-labelledby="about-title">
+        <div><span class="section-kicker">A GROWING COLLECTION</span><h2 id="about-title">日历已经翻开，故事正在路上。</h2></div>
+        <p>这里将慢慢收录百合动画在往年同日发生的故事。<br>从作品的初次相遇，到值得纪念的小小瞬间。<br><span>目前尚未收录事件，期待与你一起，填满这些日子。</span></p>
+      </section>
+    </main>
+
+    <footer class="site-footer page-width"><span>百合日历 <span class="footer-dot">·</span> YURI CALENDAR</span><span>为喜欢的故事，留一个位置 <span aria-hidden="true">✦</span></span></footer>
+
+    <dialog id="date-dialog" class="date-dialog" aria-labelledby="dialog-title" aria-describedby="empty-title empty-description">
+      <button class="dialog-close" id="dialog-close" type="button" aria-label="关闭日期详情" autofocus><span aria-hidden="true">×</span></button>
+      <div class="dialog-heading"><p class="section-kicker" id="dialog-ordinal"></p><h2 id="dialog-title"></h2><p>往年同日 · 百合动画的记忆</p></div>
+      <div class="empty-state"><span class="empty-flower" aria-hidden="true">✳</span><h3 id="empty-title">这一天的故事，等待收录</h3><p id="empty-description">未来，这里会记下那些值得回望的瞬间。<br>先为喜欢的故事，留一个位置。</p></div>
+      <div class="dialog-footer"><span>故事会慢慢长出来</span><span aria-hidden="true">✧</span></div>
+    </dialog>
+  </body>
+</html>
