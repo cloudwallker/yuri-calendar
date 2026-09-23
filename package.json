@@ -5,14 +5,9 @@
   "type": "module",
   "description": "一本持续生长的百合动画日历，固定 366 天。",
   "scripts": {
-    "dev": "node scripts/serve.mjs",
-    "test": "node --test tests/*.test.js",
-    "test:browser": "playwright test"
+    "dev": "node scripts/serve.mjs"
   },
   "engines": {
     "node": ">=22"
-  },
-  "devDependencies": {
-    "@playwright/test": "^1.63.0"
   }
 }

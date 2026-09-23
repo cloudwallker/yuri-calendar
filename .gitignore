@@ -4,3 +4,16 @@ test-results/
 playwright-report/
 .DS_Store
 Thumbs.db
+
+# Local development material; keep the public repository source-only
+**/superpowers/
+**/tests/
+**/test/
+/.github/
+/docs/
+/benchmarks/
+/artifacts/
+/e2e/
+/examples/
+/AGENTS.md
+/playwright.config.js
