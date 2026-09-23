@@ -10,10 +10,9 @@ Thumbs.db
 **/tests/
 **/test/
 /.github/
-/docs/
+/docs/costs.md
 /benchmarks/
 /artifacts/
 /e2e/
-/examples/
 /AGENTS.md
 /playwright.config.js
