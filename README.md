@@ -1,10 +1,16 @@
 # 百合日历
 
-一个公开的、固定展示 366 天的百合主题日历。采用浅色米白、淡紫和粉色界面，使用 HTML、CSS 与 JavaScript ES modules，没有运行时依赖或后端。
+### A yuri-themed calendar with a place for all 366 dates
 
-**English overview:** A public, static yuri-themed calendar showing all 366 dates, built with HTML, CSS, and JavaScript modules without a backend or runtime dependencies.
+**Browse the year by month, open a date's detail dialog, and share it with a `#MM-DD` link. February 29 is always included, and today follows Beijing time.**
 
-首版提供月导航、回到今天、日期详情弹窗，以及 `#MM-DD` 形式的日期链接。2 月 29 日始终保留；首版不包含图片和事件，`data/events.json` 保持为空。
+**按月浏览全年 366 个日期，打开日期详情，并通过 `#MM-DD` 链接分享某一天。始终保留 2 月 29 日，按北京时间定位今天。**
+
+A public static calendar with no backend or runtime dependencies. The current version contains no event entries or images; `data/events.json` is empty.
+
+这是一个公开的百合主题静态日历，采用米白、淡紫和粉色界面，没有后端或运行时依赖。当前版本不包含事件内容和图片，`data/events.json` 保持为空。
+
+[Open calendar / 打开日历](https://cloudwallker.github.io/yuri-calendar/) · [Run locally / 本地运行](#本地运行)
 
 项目仓库：[`cloudwallker/yuri-calendar`](https://github.com/cloudwallker/yuri-calendar)。站点地址：[百合日历](https://cloudwallker.github.io/yuri-calendar/)。发布状态可在仓库的 Pages 设置和 Actions 中查看。
 
