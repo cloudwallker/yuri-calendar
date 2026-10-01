@@ -14,6 +14,8 @@ A public static calendar with no backend or runtime dependencies. The current ve
 
 项目仓库：[`cloudwallker/yuri-calendar`](https://github.com/cloudwallker/yuri-calendar)。站点地址：[百合日历](https://cloudwallker.github.io/yuri-calendar/)。发布状态可在仓库的 Pages 设置和 Actions 中查看。
 
+![yuri-calendar](docs/images/cartoon-infographic.png)
+
 ## 本地运行
 
 安装 Node.js 22 或更新版本后，在项目根目录运行：
