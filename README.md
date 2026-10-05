@@ -6,9 +6,9 @@
 
 **按月浏览全年 366 个日期，打开日期详情，并通过 `#MM-DD` 链接分享某一天。始终保留 2 月 29 日，按北京时间定位今天。**
 
-A public static calendar with no backend or runtime dependencies. The current version contains no event entries or images; `data/events.json` is empty.
+A public static calendar that runs directly in the browser. The current release provides date navigation and sharing, with an empty event dataset in `data/events.json`.
 
-这是一个公开的百合主题静态日历，采用米白、淡紫和粉色界面，没有后端或运行时依赖。当前版本不包含事件内容和图片，`data/events.json` 保持为空。
+这是一个直接在浏览器中运行的公开百合主题静态日历，采用米白、淡紫和粉色界面。当前提供日期导航与分享功能，事件数据集 `data/events.json` 为空。
 
 [Open calendar / 打开日历](https://cloudwallker.github.io/yuri-calendar/) · [Run locally / 本地运行](#本地运行)
 
