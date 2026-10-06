@@ -48,6 +48,8 @@ for (const month of buildCalendar()) {
     button.type = 'button';
     button.textContent = String(day.day).padStart(2, '0');
     button.dataset.date = day.key;
+    button.tabIndex = -1;
+    button.addEventListener('focus', () => setDateFocus(day.key));
     button.setAttribute('aria-label', `${month.month}月${day.day}日`);
     button.setAttribute('aria-haspopup', 'dialog');
     button.setAttribute('aria-controls', 'date-dialog');
@@ -70,6 +72,28 @@ for (const month of buildCalendar()) {
   grid.append(card);
 }
 
+const dateKeys = [...dateButtons.keys()];
+
+function setDateFocus(key) {
+  for (const [date, button] of dateButtons) button.tabIndex = date === key ? 0 : -1;
+}
+
+grid.addEventListener('keydown', event => {
+  const button = event.target.closest('.day-button');
+  if (!button) return;
+  const index = dateKeys.indexOf(button.dataset.date);
+  const offsets = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 };
+  let next;
+  if (event.key in offsets) next = Math.max(0, Math.min(dateKeys.length - 1, index + offsets[event.key]));
+  else if (event.key === 'Home' || event.key === 'End') {
+    const monthKeys = dateKeys.filter(key => key.slice(0, 2) === button.dataset.date.slice(0, 2));
+    next = dateKeys.indexOf(event.key === 'Home' ? monthKeys[0] : monthKeys.at(-1));
+  } else return;
+  event.preventDefault();
+  setDateFocus(dateKeys[next]);
+  dateButtons.get(dateKeys[next]).focus();
+});
+
 function markMonth(month) {
   for (const [number, button] of monthButtons) {
     if (number === month) button.setAttribute('aria-current', 'true');
@@ -79,6 +103,7 @@ function markMonth(month) {
 
 function goToMonth(month) {
   markMonth(month);
+  setDateFocus(`${String(month).padStart(2, '0')}-01`);
   document.querySelector(`#month-${month}`).scrollIntoView({ behavior: reducedMotion() ? 'instant' : 'smooth', block: 'start' });
 }
 
@@ -124,6 +149,7 @@ function syncSelection() {
   const date = parseDateKey(key);
   const button = dateButtons.get(key);
   button.classList.add('is-selected');
+  setDateFocus(key);
   dialogReturnTarget = button;
   document.querySelector('#dialog-title').textContent = `${date.month}月${date.day}日`;
   document.querySelector('#dialog-ordinal').textContent = `DAY ${String(date.ordinal).padStart(3, '0')} / 366`;
@@ -163,6 +189,7 @@ document.addEventListener('visibilitychange', () => { if (!document.hidden) refr
 setInterval(refreshToday, 60_000);
 
 refreshToday();
+setDateFocus(lastTodayKey);
 if (!location.hash) history.replaceState(null, '', `#${lastTodayKey}`);
 const initialDateKey = parseDateHash(location.hash);
 if (initialDateKey) {

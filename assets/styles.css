@@ -181,3 +181,31 @@ h1 { font-family: var(--serif); font-size: clamp(30px, 3.15vw, 43px); font-weigh
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* Accessible workspace refinements */
+:root { --muted: #6f6579; }
+body { font-size: 16px; line-height: 1.65; }
+.hero-description, .about-section > p, .empty-state p { font-size: 15px; line-height: 1.95; }
+.header-link, .header-note, .hero-link, .calendar-meta, .calendar-end, .dialog-heading > p:last-child, .dialog-footer { font-size: 14px; }
+.brand-subtitle, .number-caption, .section-kicker, .month-english, .month-card-footer, .site-footer { font-size: 12px; letter-spacing: .08em; }
+.hero { padding-block: 54px; }
+.month-jump, .today-button, .dialog-close, .hero-link, .header-link { min-height: 44px; }
+.month-jump { font-size: 14px; border: 1px solid transparent; }
+.month-jump[aria-current="true"] { border-color: var(--purple-dark); color: #fff; font-weight: 650; }
+.number-caption, .number-baseline, .section-kicker, .month-english, .month-card-footer,
+.month-card-footer > span:last-child, .calendar-end, .about-section > p > span,
+.site-footer, .dialog-footer { color: var(--muted); }
+.hero-number { color: #8b7397; }
+.month-card { border-radius: 16px; border-color: #d9cddb; padding: 22px; }
+.month-days { grid-auto-rows: 44px; gap: 6px 4px; min-height: 244px; }
+.day-button { font-size: 15px; min-height: 44px; }
+.day-button[aria-current="date"] { font-weight: 750; box-shadow: inset 0 0 0 2px var(--purple-dark); }
+.day-button.is-selected { background: var(--purple-dark); color: white; }
+.calendar-meta { flex-wrap: wrap; gap: 10px; }
+.keyboard-help { margin: -10px 0 22px; font-size: 13px; color: var(--muted); }
+.date-dialog { border: 1px solid #d2c1d9; border-radius: 20px; }
+.dialog-close { min-width: 44px; }
+.about-section > p, .empty-state p, .month-card-footer, .dialog-footer { overflow-wrap: anywhere; }
+button:focus-visible, a:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--purple-dark); outline-offset: 4px; }
+@media (max-width: 1050px) { .calendar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 759px) { .calendar-grid { grid-template-columns: 1fr; } .month-jump { font-size: 14px; } .hero-description, .about-section > p { font-size: 15px; } .day-button { font-size: 15px; } .month-card { padding: 20px; } .header-link { font-size: 13px; } .calendar-heading { flex-wrap: wrap; } .today-button { font-size: 14px; } }

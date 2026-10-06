@@ -65,3 +65,9 @@ package.json        本地运行命令
 现有文件可直接作为静态站点部署。需要迁移时，在 Cloudflare Pages 连接该仓库，选择 `main` 作为生产分支，不使用框架预设或构建命令，将项目根目录设为发布目录。部署后检查资源路径、日期链接与交互，再按需绑定自定义域名。
 
 当前无需 Functions、数据库或 R2。只有后续资源规模或访问需求确实需要时，再评估额外服务；域名、图片生成与存储费用分别计算。
+
+## Interface / 界面体验
+
+A year-round 366-date calendar with month navigation, shareable date details, visible keyboard focus, and arrow-key, Home and End date navigation.
+
+全年 366 日期日历，提供月份跳转、可分享的日期详情、可见键盘焦点，以及方向键、Home 和 End 日期导航。
